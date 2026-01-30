@@ -1,4 +1,4 @@
-package com.example.migue_music;
+package com.example.miguemusic;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

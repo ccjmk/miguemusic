@@ -25,10 +25,15 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	compileOnly("org.projectlombok:lombok")
+	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("com.h2database:h2:2.2.224")
+	implementation("org.springframework.boot:spring-boot-h2console")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

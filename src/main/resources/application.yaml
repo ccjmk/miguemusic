@@ -1,3 +1,11 @@
 spring:
   application:
     name: migue-music
+  datasource:
+    url: jdbc:h2:file:/data/demo
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
