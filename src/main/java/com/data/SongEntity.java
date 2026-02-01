@@ -6,18 +6,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 import lombok.Data;
 
 @Data
 @Entity
-@AllArgsConstructor
+@Table(name = "SONGS")
+@NoArgsConstructor
 public class SongEntity implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     Long id;
     
-    final String title;
-    final int durationSeconds;
+    String title;
+    int durationSeconds;
 }

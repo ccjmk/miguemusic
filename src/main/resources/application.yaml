@@ -1,11 +1,19 @@
 spring:
   application:
     name: migue-music
+    
   datasource:
     url: jdbc:h2:file:/data/demo
     driverClassName: org.h2.Driver
     username: sa
     password: password
+
+  web:
+    error:
+      include-stacktrace: never
+
+  jpa:
+    hibernate.ddl-auto: create
+
   h2:
-    console:
-      enabled: true
+    console.enabled: true

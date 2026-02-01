@@ -1,12 +1,15 @@
 package com.controller;
 
+import java.util.Optional;
+
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.controller.exception.ResourceNotFoundException;
 import com.data.SongEntity;
-
+import com.data.SongRepository;
 import com.domain.Song;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,18 +20,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RestController
 @RequestMapping("/songs")
 public class SongController {
-    private ConversionService conversionService;
+    private final ConversionService conversionService;
+    private final SongRepository repository;
 
-    SongController(ConversionService conversionService) {
+    SongController(ConversionService conversionService, SongRepository repository) {
         this.conversionService = conversionService;
+        this.repository = repository;
     }
 
     @GetMapping("/{id}")
     public Song getSongById(@PathVariable Long id) {
-        Song newSong = new Song("Song One", 210);
-        newSong.setId(id);
+        Optional<SongEntity> songEntity = repository.findById(id);
 
-        return newSong;
+        if(songEntity.isEmpty()) {
+            throw new ResourceNotFoundException("Song not found");
+        }
+        return conversionService.convert(songEntity, Song.class);
     }
     
     
@@ -38,8 +45,8 @@ public class SongController {
         SongEntity songEntity = conversionService.convert(newSong, SongEntity.class);
         System.out.println("Converted SongEntity: " + songEntity);
 
-        // repository.save(newAlbum);
+        SongEntity saved = repository.save(songEntity);
         
-        return newSong;
+        return conversionService.convert(saved, Song.class);
     }
 }
