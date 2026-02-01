@@ -1,0 +1,14 @@
+spring:
+  sql:
+    init:
+      mode: embedded
+      data-locations: classpath:data/data-h2.sql
+  datasource:
+    url: jdbc:h2:mem:musicdb;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
+      path: /h2

@@ -1,6 +1,8 @@
 package com.controller;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,10 +14,10 @@ import com.data.SongEntity;
 import com.data.SongRepository;
 import com.domain.Song;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 
 @RestController
 @RequestMapping("/songs")
@@ -27,6 +29,16 @@ public class SongController {
         this.conversionService = conversionService;
         this.repository = repository;
     }
+
+    @GetMapping()
+    public List<Song> listSongs() {
+        List<SongEntity> songs = repository.findAll();
+
+        return songs.stream()
+            .map(songEntity -> conversionService.convert(songEntity, Song.class))
+            .collect(Collectors.toList());
+    }
+    
 
     @GetMapping("/{id}")
     public Song getSongById(@PathVariable Long id) {
@@ -48,5 +60,14 @@ public class SongController {
         SongEntity saved = repository.save(songEntity);
         
         return conversionService.convert(saved, Song.class);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteSong(@PathVariable Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Song not found");
+        }
     }
 }

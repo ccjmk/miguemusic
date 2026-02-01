@@ -16,7 +16,7 @@ import lombok.Data;
 @NoArgsConstructor
 public class SongEntity implements Serializable{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     
     String title;

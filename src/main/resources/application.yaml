@@ -1,19 +1,11 @@
 spring:
   application:
     name: migue-music
-    
-  datasource:
-    url: jdbc:h2:file:/data/demo
-    driverClassName: org.h2.Driver
-    username: sa
-    password: password
-
+  profiles:
+    active:
+    - local
   web:
     error:
       include-stacktrace: never
-
   jpa:
-    hibernate.ddl-auto: create
-
-  h2:
-    console.enabled: true
+    defer-datasource-initialization: true
