@@ -2,4 +2,5 @@ package com.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SongRepository  extends JpaRepository<SongEntity, Long> {}
+public interface SongRepository extends JpaRepository<SongEntity, Long> {
+}

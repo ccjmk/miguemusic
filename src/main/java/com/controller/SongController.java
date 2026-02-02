@@ -35,22 +35,38 @@ public class SongController {
         List<SongEntity> songs = repository.findAll();
 
         return songs.stream()
-            .map(songEntity -> conversionService.convert(songEntity, Song.class))
-            .collect(Collectors.toList());
+                .map(songEntity -> conversionService.convert(songEntity, Song.class))
+                .collect(Collectors.toList());
     }
-    
 
     @GetMapping("/{id}")
     public Song getSongById(@PathVariable Long id) {
         Optional<SongEntity> songEntity = repository.findById(id);
 
-        if(songEntity.isEmpty()) {
+        if (songEntity.isEmpty()) {
             throw new ResourceNotFoundException("Song not found");
         }
         return conversionService.convert(songEntity, Song.class);
     }
-    
-    
+
+    // @PatchMapping("/{id}")
+    // public Song updateSong(@PathVariable Long id, @RequestBody Song updatedSong)
+    // {
+    // Optional<SongEntity> existingSongEntity = repository.findById(id);
+
+    // if(existingSongEntity.isEmpty()) {
+    // throw new ResourceNotFoundException("Song not found");
+    // }
+
+    // SongEntity songEntityToUpdate = existingSongEntity.get();
+    // songEntityToUpdate.setTitle(updatedSong.getTitle());
+    // songEntityToUpdate.setDurationSeconds(updatedSong.getDurationInSeconds());
+
+    // SongEntity saved = repository.save(songEntityToUpdate);
+
+    // return conversionService.convert(saved, Song.class);
+    // }
+
     @PostMapping("")
     public Song addSong(@RequestBody Song newSong) {
         System.out.println("Received new song: " + newSong);
@@ -58,7 +74,7 @@ public class SongController {
         System.out.println("Converted SongEntity: " + songEntity);
 
         SongEntity saved = repository.save(songEntity);
-        
+
         return conversionService.convert(saved, Song.class);
     }
 

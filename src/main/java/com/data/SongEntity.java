@@ -14,11 +14,11 @@ import lombok.Data;
 @Entity
 @Table(name = "SONGS")
 @NoArgsConstructor
-public class SongEntity implements Serializable{
+public class SongEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    
+
     String title;
     int durationSeconds;
 }
