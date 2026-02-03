@@ -2,7 +2,6 @@ package com.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +35,7 @@ public class SongController {
 
         return songs.stream()
                 .map(songEntity -> conversionService.convert(songEntity, Song.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @GetMapping("/{id}")

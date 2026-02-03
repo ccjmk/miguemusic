@@ -1,30 +1,32 @@
 package com.data;
 
 import java.io.Serializable;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "SONGS")
+@Table(name = "ARTISTS")
 @NoArgsConstructor
-public class SongEntity implements Serializable {
+public class ArtistEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String title;
-    int durationSeconds;
+    String firstName;
+    String lastName;
+    String nationality;
+    String birthDate;
 
-    @ManyToOne
-    @JoinColumn(name = "album_id")
-    AlbumEntity album;
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    List<AlbumEntity> albums;
 }
