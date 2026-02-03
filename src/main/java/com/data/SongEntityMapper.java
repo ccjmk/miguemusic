@@ -7,7 +7,7 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.domain.Song;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = { ArtistEntityMapper.class })
 public interface SongEntityMapper extends Converter<Song, SongEntity> {
     @Mapping(target = "durationSeconds", source = "durationInSeconds")
     SongEntity convert(Song source);

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Album {
     Long id;
-    final Artist artist;
+    final List<Artist> artists;
     final int releaseYear;
     final String title;
     final List<Song> songs;

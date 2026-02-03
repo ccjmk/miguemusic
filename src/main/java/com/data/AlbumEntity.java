@@ -8,8 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
@@ -27,9 +28,9 @@ public class AlbumEntity implements Serializable {
     String title;
     int releaseYear;
 
-    @ManyToOne
-    @JoinColumn(name = "artist_id")
-    ArtistEntity artist;
+    @ManyToMany
+    @JoinTable(name = "album_artists", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
+    List<ArtistEntity> artists;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     List<SongEntity> songs;

@@ -7,27 +7,27 @@ INSERT INTO artists (first_name, last_name, nationality, birth_date) VALUES
 ('Grimes', 'Boucher', 'Canadian', '1988-03-17');
 
 -- INSERT ALBUMS
-INSERT INTO albums (title, release_year, artist_id) VALUES
+INSERT INTO albums (title, release_year) VALUES
 -- David Bowie
-('The Rise and Fall of Ziggy Stardust and the Spiders from Mars', 1972, 1),
-('Heroes', 1977, 1),
-('Scary Monsters (and Super Creeps)', 1980, 1),
+('The Rise and Fall of Ziggy Stardust and the Spiders from Mars', 1972),
+('Heroes', 1977),
+('Scary Monsters (and Super Creeps)', 1980),
 -- Prince
-('Sign O'' the Times', 1987, 2),
-('Batman', 1989, 2),
-('Diamonds and Pearls', 1991, 2),
+('Sign O'' the Times', 1987),
+('Batman', 1989),
+('Diamonds and Pearls', 1991),
 -- Bjork
-('Debut', 1993, 3),
-('Post', 1995, 3),
-('Homogenic', 1997, 3),
+('Debut', 1993),
+('Post', 1995),
+('Homogenic', 1997),
 -- Thom Yorke
-('OK Computer', 1997, 4),
-('Kid A', 2000, 4),
-('Amnestyc', 2001, 4),
+('OK Computer', 1997),
+('Kid A', 2000),
+('Amnestyc', 2001),
 -- Grimes
-('Visions', 2012, 5),
-('Art Angels', 2015, 5),
-('Realiti', 2016, 5);
+('Visions', 2012),
+('Art Angels', 2015),
+('Realiti', 2016);
 
 -- INSERT SONGS
 INSERT INTO songs (title, duration_seconds, album_id) VALUES
@@ -103,3 +103,32 @@ INSERT INTO songs (title, duration_seconds, album_id) VALUES
 ('Go', 267, 15),
 ('We Appreciate Power', 289, 15),
 ('Realiti', 381, 15);
+
+-- LINK ALBUMS TO ARTISTS (many-to-many)
+INSERT INTO album_artists (album_id, artist_id) VALUES
+-- David Bowie (albums 1-3)
+(1, 1),
+(2, 1),
+(3, 1),
+-- Prince (albums 4-6)
+(4, 2),
+(5, 2),
+(6, 2),
+-- Bjork (albums 7-9)
+(7, 3),
+(8, 3),
+(9, 3),
+-- Thom Yorke (albums 10-12)
+(10, 4),
+(11, 4),
+(12, 4),
+-- Grimes (albums 13-15)
+(13, 5),
+(14, 5),
+(15, 5);
+
+-- LINK SONGS TO ARTISTS based on album ownership
+INSERT INTO song_artists (song_id, artist_id)
+SELECT s.id, aa.artist_id
+FROM songs s
+JOIN album_artists aa ON s.album_id = aa.album_id;
